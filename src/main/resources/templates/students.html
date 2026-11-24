@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Records</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #f0f0f0; }
+        .inline { display: inline; }
+        button, .btn { padding: 4px 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Student Records</h1>
+
+    <form method="get" th:action="@{/students}">
+        <input type="text" name="name" th:value="${name}" placeholder="Search by name">
+        <button type="submit">Search</button>
+        <a th:href="@{/students}">Show all</a>
+    </form>
+
+    <p><a th:href="@{/students/new}">+ Add New Student</a></p>
+
+    <p th:if="${#lists.isEmpty(students)}">No students found.</p>
+
+    <table th:unless="${#lists.isEmpty(students)}">
+        <tr>
+            <th>Reg No</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>CGPA</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="s : ${students}">
+            <td th:text="${s.regNo}"></td>
+            <td th:text="${s.name}"></td>
+            <td th:text="${s.department}"></td>
+            <td th:text="${s.cgpa}"></td>
+            <td>
+                <a th:href="@{/students/{r}(r=${s.regNo})}">View</a> |
+                <a th:href="@{/students/{r}/edit(r=${s.regNo})}">Edit</a> |
+                <form class="inline" method="post"
+                      th:action="@{/students/{r}/delete(r=${s.regNo})}"
+                      onsubmit="return confirm('Delete this student?');">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

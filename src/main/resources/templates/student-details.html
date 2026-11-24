@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Details</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        .error { color: #b00020; font-weight: bold; }
+        td { padding: 6px 12px 6px 0; }
+    </style>
+</head>
+<body>
+    <h1>Student Details</h1>
+
+    <p class="error" th:if="${message}" th:text="${message}"></p>
+
+    <table th:if="${student}">
+        <tr><td><b>Reg No</b></td><td th:text="${student.regNo}"></td></tr>
+        <tr><td><b>Name</b></td><td th:text="${student.name}"></td></tr>
+        <tr><td><b>Department</b></td><td th:text="${student.department}"></td></tr>
+        <tr><td><b>CGPA</b></td><td th:text="${student.cgpa}"></td></tr>
+    </table>
+
+    <p>
+        <a th:if="${student}" th:href="@{/students/{r}/edit(r=${student.regNo})}">Edit</a>
+        <a th:href="@{/students}">Back to list</a>
+    </p>
+</body>
+</html>
