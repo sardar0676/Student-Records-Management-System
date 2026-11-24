@@ -1,0 +1,10 @@
+-- Step 0.1: run once
+CREATE DATABASE IF NOT EXISTS scd_records;
+USE scd_records;
+CREATE TABLE IF NOT EXISTS students (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ reg_no VARCHAR(20) NOT NULL UNIQUE,
+ name VARCHAR(100) NOT NULL,
+ department VARCHAR(50) NOT NULL,
+ cgpa DECIMAL(3,2) NOT NULL
+);
